@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scrum Poker - Free Agile Estimation App</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .contenedor {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tarjeta {
+            width: 150px;
+            height: 150px;
+            background-color: #eaeaea;
+            margin: 10px;
+            perspective: 1000px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .tarjeta:hover {
+            transform: scale(1.05);
+        }
+
+        .tarjeta.seleccionada {
+            background-color: #c0c0c0;
+            color: white;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .tarjeta {
+                width: 100%;
+                max-width: 300px;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Room name: {{.room.ID}}</h1>
+    <div class="contenedor">
+        <div class="tarjeta">?</div>
+        <div class="tarjeta">0</div>
+        <div class="tarjeta">0.5</div>
+        <div class="tarjeta">1</div>
+        <div class="tarjeta">2</div>
+        <div class="tarjeta">3</div>
+        <div class="tarjeta">5</div>
+        <div class="tarjeta">8</div>
+        <div class="tarjeta">13</div>
+        <div class="tarjeta">20</div>
+    </div>
+
+    <br>
+    <button id="show-votes" class="btn">Show votes</button>
+    <button id="clean-votes" class="btn">Clean votes</button>
+    <h2>Participants:</h2>
+    <div id="participants"></div>
+
+    <script>
+
+        document.getElementById('show-votes').addEventListener('click', function () {
+            const msg = { action: "showVotes" };
+            socket.send(JSON.stringify(msg));
+        });
+
+        document.getElementById('clean-votes').addEventListener('click', function () {
+            const msg = { action: "cleanVotes" };
+            socket.send(JSON.stringify(msg));
+        });
+
+        var tarjetas = document.querySelectorAll('.tarjeta');
+
+        tarjetas.forEach(function (tarjeta) {
+            tarjeta.addEventListener('click', function () {
+                sendVote(this.innerHTML);
+                tarjetas.forEach(function (t) {
+                    t.classList.remove('seleccionada');
+                });
+
+                tarjeta.classList.add('seleccionada');
+            });
+        });
+
+        const host = window.location.host;
+        const path = window.location.pathname;
+        const ws_protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const qParams = localStorage.getItem('userName') ? '?username=' + localStorage.getItem('userName')  : '';
+        const socket = new WebSocket(ws_protocol + '//' + host + path + '/ws' + qParams);
+        let username = localStorage.getItem('userName') ? localStorage.getItem('userName')  : '';
+
+        socket.onmessage = function (event) {
+            const msg = JSON.parse(event.data);
+            const participantsDiv = document.getElementById('participants');
+            let flag = ''
+            participantsDiv.innerHTML = '';
+            if (username === '' && 'you_are' in msg) {
+                username = msg.you_are;
+            }
+            msg.participants.forEach(participant => {
+                const flag = participant.username === username ? '✏️' : '';
+                const id = participant.username === username ? 'edit' : '';
+                participantsDiv.innerHTML += `<div style="width: 25px; display: inline-block;" id="${id}">${flag}</div><div style="display: inline-block;"><div id="${id}-txt" style="font-weight: bold; width: 200px;display: inline-block;">${participant.username}</div> ${participant.vote}</div><br>`;
+            });
+            document.getElementById('edit').addEventListener('click', function () {
+                document.getElementById('edit-txt').innerHTML = `<input type="text" id="username" value="${username}">`;
+                document.getElementById('username').addEventListener('keyup', function (event) {
+                    if (event.keyCode === 13) {
+                        const msg = { action: "editUsername", value: this.value };
+                        username = this.value;
+                        localStorage.setItem('userName', this.value)
+                        socket.send(JSON.stringify(msg));
+                    }
+                });
+            });
+        };
+
+        function sendVote(vote) {
+            const msg = { action: "vote", value: vote };
+            socket.send(JSON.stringify(msg));
+        }
+    </script>
+</body>
+
+</html>
