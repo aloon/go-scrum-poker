@@ -197,6 +197,7 @@ func main() {
 					room.Participants[i].TempVote = ""
 				}
 				sendRoomToClients(roomID, "")
+
 			case "editUsername":
 				room := rooms[roomID]
 				room.UpdatedAt = time.Now()
