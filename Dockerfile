@@ -9,7 +9,7 @@ COPY ./ .
 
 RUN go mod download
 RUN go mod verify
-RUN go build -o go-scrum-poker
+RUN go build -o go-scrum-poker -buildvcs=false
 
 FROM golang:1.20
 
@@ -19,7 +19,7 @@ WORKDIR "$APP_HOME"
 
 COPY templates/ templates/
 COPY static/ static/
-COPY --from=builder "$APP_HOME"/go-scrum-poker $APP_HOME
+COPY --from=builder "$APP_HOME"/go-scrum-poker $APP_HOME 
 
 EXPOSE 8080
 CMD ["./go-scrum-poker"]
