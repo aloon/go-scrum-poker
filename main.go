@@ -117,6 +117,7 @@ func main() {
 
 	router.LoadHTMLGlob(filepath.Join("templates", "*.html"))
 	router.Static("/static", "./static")
+	router.StaticFile("/robots.txt", "./static/robots.txt")
 
 	router.GET("/:room/ws", func(c *gin.Context) {
 		roomID := c.Param("room")
