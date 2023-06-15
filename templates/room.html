@@ -88,6 +88,8 @@
 
     <script>
         let socket;
+        let tarjetas = document.querySelectorAll('.tarjeta');
+
         function connectWebSocket() {
             const host = window.location.host;
             const path = window.location.pathname;
@@ -113,9 +115,8 @@
         document.getElementById('clean-votes').addEventListener('click', function () {
             const msg = { action: "cleanVotes" };
             socket.send(JSON.stringify(msg));
+            tarjetas.forEach(tarjeta => tarjeta.classList.remove('seleccionada'));
         });
-
-        var tarjetas = document.querySelectorAll('.tarjeta');
 
         tarjetas.forEach(function (tarjeta) {
             tarjeta.addEventListener('click', function () {
