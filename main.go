@@ -255,6 +255,7 @@ func main() {
 	router.LoadHTMLGlob(filepath.Join("templates", "*.html"))
 	router.Static("/static", "./static")
 	router.StaticFile("/robots.txt", "./static/robots.txt")
+	router.StaticFile("/favicon.ico", "./static/favicon.ico")
 
 	go func() {
 		for range time.Tick(10 * time.Minute) {
