@@ -30,8 +30,15 @@ type Room struct {
 	Participants []Participant `json:"participants"`
 	YouAre       string        `json:"you_are,omitempty"`
 }
+type RoomMap map[string]Room
 
-var rooms = make(map[string]Room)
+func (r *RoomMap) UpdateUpdatedAt(ID string) {
+	room := rooms[ID]
+	room.UpdatedAt = time.Now()
+	rooms[ID] = room
+}
+
+var rooms = make(RoomMap)
 var roomClients = make(map[string]map[*websocket.Conn]string)
 
 var upgrader = websocket.Upgrader{
@@ -187,7 +194,7 @@ func main() {
 				voteValue := action.Value
 
 				room := rooms[roomID]
-				room.UpdatedAt = time.Now()
+				rooms.UpdateUpdatedAt(roomID)
 				for i, participant := range room.Participants {
 					if participant.UserName == userName {
 						room.Participants[i].TempVote = voteValue
@@ -200,7 +207,7 @@ func main() {
 
 			case "showVotes":
 				room := rooms[roomID]
-				room.UpdatedAt = time.Now()
+				rooms.UpdateUpdatedAt(roomID)
 				for i := range room.Participants {
 					room.Participants[i].Vote = room.Participants[i].TempVote
 				}
@@ -208,7 +215,7 @@ func main() {
 
 			case "cleanVotes":
 				room := rooms[roomID]
-				room.UpdatedAt = time.Now()
+				rooms.UpdateUpdatedAt(roomID)
 				for i := range room.Participants {
 					room.Participants[i].Vote = ""
 					room.Participants[i].TempVote = ""
@@ -217,7 +224,7 @@ func main() {
 
 			case "editUsername":
 				room := rooms[roomID]
-				room.UpdatedAt = time.Now()
+				rooms.UpdateUpdatedAt(roomID)
 				for i := range room.Participants {
 					if room.Participants[i].UserName == userName {
 						room.Participants[i].UserName = action.Value
@@ -242,6 +249,7 @@ func main() {
 
 	router.GET("/:room", func(c *gin.Context) {
 		roomId := c.Params.ByName("room")
+		rooms.UpdateUpdatedAt(roomId)
 		room, ok := rooms[roomId]
 		if !ok {
 			now := time.Now()
