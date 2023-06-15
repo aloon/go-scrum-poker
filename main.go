@@ -40,6 +40,16 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
+func CleanRooms() {
+	now := time.Now()
+	for key, room := range rooms {
+		diff := now.Sub(room.UpdatedAt)
+		if diff.Hours() > 2 {
+			delete(rooms, key)
+		}
+	}
+}
+
 func createRoom(roomID, userName string) {
 	room := Room{
 		ID:           roomID,
@@ -118,6 +128,12 @@ func main() {
 	router.LoadHTMLGlob(filepath.Join("templates", "*.html"))
 	router.Static("/static", "./static")
 	router.StaticFile("/robots.txt", "./static/robots.txt")
+
+	go func() {
+		for range time.Tick(10 * time.Minute) {
+			CleanRooms()
+		}
+	}()
 
 	router.GET("/:room/ws", func(c *gin.Context) {
 		roomID := c.Param("room")
