@@ -87,6 +87,23 @@
     <div id="participants"></div>
 
     <script>
+        let socket;
+        function connectWebSocket() {
+            const host = window.location.host;
+            const path = window.location.pathname;
+            const ws_protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const qParams = localStorage.getItem('userName') ? '?username=' + localStorage.getItem('userName') : '';
+            socket = new WebSocket(ws_protocol + '//' + host + path + '/ws' + qParams);
+            socket.onmessage = onmessage;
+            socket.onerror = (error) => {
+                console.error('Error en la conexión WebSocket:', error);
+            };
+            socket.onclose = (event) => {
+                console.log('WebSocket conexion closed');
+                setTimeout(connectWebSocket, 2000);
+            };
+        }
+        connectWebSocket();
 
         document.getElementById('show-votes').addEventListener('click', function () {
             const msg = { action: "showVotes" };
@@ -111,16 +128,11 @@
             });
         });
 
-        const host = window.location.host;
-        const path = window.location.pathname;
-        const ws_protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const qParams = localStorage.getItem('userName') ? '?username=' + localStorage.getItem('userName') : '';
-        const socket = new WebSocket(ws_protocol + '//' + host + path + '/ws' + qParams);
         let username = localStorage.getItem('userName') ? localStorage.getItem('userName') : '';
         let editing = false
         let pending = [];
 
-        let onmessage = function (event) {
+        function onmessage(event) {
             const msg = JSON.parse(event.data);
             const participantsDiv = document.getElementById('participants');
             let flag = ''
