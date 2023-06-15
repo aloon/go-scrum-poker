@@ -85,7 +85,7 @@
                 <td>
                     <ul>
                         {{ range $participant := $room.Participants }}
-                        <li>{{ $participant.UserName }}: {{ $participant.Vote }}({{ $participant.TempVote }})</li>
+                        <li>{{ $participant.UserName }}: {{ $participant.Vote }}</li>
                         {{ end }}
                     </ul>
                 </td>
