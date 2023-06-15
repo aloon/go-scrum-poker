@@ -10,7 +10,6 @@
     <link rel="manifest" href="/static/site.webmanifest">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -115,35 +114,49 @@
         const host = window.location.host;
         const path = window.location.pathname;
         const ws_protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const qParams = localStorage.getItem('userName') ? '?username=' + localStorage.getItem('userName')  : '';
+        const qParams = localStorage.getItem('userName') ? '?username=' + localStorage.getItem('userName') : '';
         const socket = new WebSocket(ws_protocol + '//' + host + path + '/ws' + qParams);
-        let username = localStorage.getItem('userName') ? localStorage.getItem('userName')  : '';
+        let username = localStorage.getItem('userName') ? localStorage.getItem('userName') : '';
+        let editing = false
+        let pending = [];
 
-        socket.onmessage = function (event) {
+        let onmessage = function (event) {
             const msg = JSON.parse(event.data);
             const participantsDiv = document.getElementById('participants');
             let flag = ''
-            participantsDiv.innerHTML = '';
             if (username === '' && 'you_are' in msg) {
                 username = msg.you_are;
             }
-            msg.participants.forEach(participant => {
-                const flag = participant.username === username ? '✏️' : '';
-                const id = participant.username === username ? 'edit' : '';
-                participantsDiv.innerHTML += `<div style="width: 25px; display: inline-block;" id="${id}">${flag}</div><div style="display: inline-block;"><div id="${id}-txt" style="font-weight: bold; width: 200px;display: inline-block;">${participant.username}</div> ${participant.vote}</div><br>`;
-            });
-            document.getElementById('edit').addEventListener('click', function () {
-                document.getElementById('edit-txt').innerHTML = `<input type="text" id="username" value="${username}">`;
-                document.getElementById('username').addEventListener('keyup', function (event) {
-                    if (event.keyCode === 13) {
-                        const msg = { action: "editUsername", value: this.value };
-                        username = this.value;
-                        localStorage.setItem('userName', this.value)
-                        socket.send(JSON.stringify(msg));
-                    }
+            if (editing) {
+                pending.push(event);
+            }
+            else {
+                participantsDiv.innerHTML = '';
+                msg.participants.forEach(participant => {
+                    const flag = participant.username === username ? '✏️' : '';
+                    const id = participant.username === username ? 'edit' : '';
+                    participantsDiv.innerHTML += `<div style="width: 25px; display: inline-block;" id="${id}">${flag}</div><div style="display: inline-block;"><div id="${id}-txt" style="font-weight: bold; width: 200px;display: inline-block;">${participant.username}</div> ${participant.vote}</div><br>`;
                 });
-            });
-        };
+
+                document.getElementById('edit').addEventListener('click', function () {
+                    editing = true;
+                    document.getElementById('edit-txt').innerHTML = `<input type="text" id="username" value="${username}">`;
+                    document.getElementById('username').addEventListener('keyup', function (event) {
+                        if (event.keyCode === 13) {
+                            editing = false;
+                            const msg = { action: "editUsername", value: this.value };
+                            username = this.value;
+                            localStorage.setItem('userName', this.value)
+                            socket.send(JSON.stringify(msg));
+                            pending.forEach(onmessage);
+                            pending = [];
+                        }
+                    });
+                });
+            }
+        }
+
+        socket.onmessage = onmessage;
 
         function sendVote(vote) {
             const msg = { action: "vote", value: vote };
