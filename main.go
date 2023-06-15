@@ -258,6 +258,12 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
+	router.GET("/_", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "rooms.html", gin.H{
+			"Rooms": rooms,
+		})
+	})
+
 	router.POST("/create-room", func(c *gin.Context) {
 		type RoomName struct {
 			RoomName string `json:"roomName"`

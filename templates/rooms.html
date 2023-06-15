@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrum Poker - Free Agile Estimation App</title>
+    <meta name="description" content="Scrum Poker - Open source Agile Estimation App.">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Scrum Poker</h1>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Creation date</th>
+                <th>Modification date</th>
+                <th>Participantes</th>
+            </tr>
+            {{ range $key, $room := .Rooms }}
+            <tr>
+                <td>{{ $key }}</td>
+                <td>{{ $room.CreatedAt.Format "15:04:05" }}</td>
+                <td>{{ $room.UpdatedAt.Format "15:04:05" }}</td>
+                <td>
+                    <ul>
+                        {{ range $participant := $room.Participants }}
+                        <li>{{ $participant.UserName }}: {{ $participant.Vote }}({{ $participant.TempVote }})</li>
+                        {{ end }}
+                    </ul>
+                </td>
+            </tr>
+            {{ end }}
+        </table>
+
+    </div>
+    <script>
+
+    </script>
+</body>
+
+</html>
