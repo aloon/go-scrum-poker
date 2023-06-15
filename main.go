@@ -76,6 +76,7 @@ func joinRoom(roomID, userName string) {
 
 	room.Participants = append(room.Participants, Participant{UserName: userName, Vote: ""})
 	room.UpdatedAt = time.Now()
+	room.CreatedAt = time.Now()
 
 	rooms[roomID] = room
 }
@@ -237,6 +238,8 @@ func roomHandler(c *gin.Context) {
 	roomId := c.Params.ByName("room")
 	rooms.UpdateUpdatedAt(roomId)
 	room, ok := rooms[roomId]
+	room.CreatedAt = time.Now()
+	rooms[roomId] = room
 	if !ok {
 		now := time.Now()
 		rooms[roomId] = Room{CreatedAt: now, UpdatedAt: now, ID: roomId}
