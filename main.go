@@ -143,7 +143,7 @@ func showVotes(roomID string) {
 
 	room.UpdatedAt = time.Now()
 
-	tuplas := make([]struct {
+	tuples := make([]struct {
 		Participant Participant
 		VoteOrder   int
 	}, len(room.Participants))
@@ -159,17 +159,17 @@ func showVotes(roomID string) {
 		if err == nil {
 			numVote = intVote
 		}
-		tuplas[i].Participant = participant
-		tuplas[i].VoteOrder = numVote
+		tuples[i].Participant = participant
+		tuples[i].VoteOrder = numVote
 	}
 
-	sort.Slice(tuplas, func(i, j int) bool {
-		return tuplas[i].VoteOrder < tuplas[j].VoteOrder
+	sort.Slice(tuples, func(i, j int) bool {
+		return tuples[i].VoteOrder < tuples[j].VoteOrder
 	})
 
-	participantsOrdered := make([]Participant, len(tuplas))
-	for i, tupla := range tuplas {
-		participantsOrdered[i] = tupla.Participant
+	participantsOrdered := make([]Participant, len(tuples))
+	for i, tuple := range tuples {
+		participantsOrdered[i] = tuple.Participant
 	}
 
 	room.Participants = participantsOrdered
