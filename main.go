@@ -167,12 +167,12 @@ func showVotes(roomID string) {
 		return tuplas[i].VoteOrder < tuplas[j].VoteOrder
 	})
 
-	participantResult := make([]Participant, len(tuplas))
+	participantsOrdered := make([]Participant, len(tuplas))
 	for i, tupla := range tuplas {
-		participantResult[i] = tupla.Participant
+		participantsOrdered[i] = tupla.Participant
 	}
 
-	room.Participants = participantResult
+	room.Participants = participantsOrdered
 
 	rooms[roomID] = room
 }
