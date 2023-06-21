@@ -14,10 +14,10 @@ func TestShowVotes(t *testing.T) {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 		Participants: []Participant{
+			{UserName: "test-user4", TempVote: ""},
 			{UserName: "test-user", TempVote: "?"},
 			{UserName: "test-user2", TempVote: "5"},
 			{UserName: "test-user3", TempVote: "2"},
-			{UserName: "test-user4", TempVote: ""},
 		},
 	}
 
