@@ -11,8 +11,8 @@ func TestShowVotes(t *testing.T) {
 	rooms = make(map[string]Room)
 	rooms[roomID] = Room{
 		ID:        roomID,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		CreatedAt: time.Now().Add(-2 * time.Hour),
+		UpdatedAt: time.Now().Add(-2 * time.Hour),
 		Participants: []Participant{
 			{UserName: "test-user4", TempVote: ""},
 			{UserName: "test-user", TempVote: "?"},
@@ -44,4 +44,9 @@ func TestShowVotes(t *testing.T) {
 			room.Participants[3].UserName,
 		)
 	}
+
+	if time.Until(room.UpdatedAt) > time.Minute {
+		t.Errorf("UpdatedAt was not updated")
+	}
+
 }
