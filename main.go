@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
+	"sort"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -129,6 +131,52 @@ func sendRoomToClients(roomID string, userName string) {
 	}
 }
 
+func showVotes(roomID string) {
+	room, exists := rooms[roomID]
+	if !exists {
+		return
+	}
+
+	for i := range room.Participants {
+		room.Participants[i].Vote = room.Participants[i].TempVote
+	}
+
+	room.UpdatedAt = time.Now()
+
+	tuplas := make([]struct {
+		Participant Participant
+		VoteOrder   int
+	}, len(room.Participants))
+
+	for i, participant := range room.Participants {
+		numVote := -1
+		if participant.Vote == "?" {
+			numVote = -1
+		} else if participant.Vote == "" {
+			numVote = 999
+		}
+		intVote, err := strconv.Atoi(participant.Vote)
+		if err == nil {
+			numVote = intVote
+		}
+		tuplas[i].Participant = participant
+		tuplas[i].VoteOrder = numVote
+	}
+
+	sort.Slice(tuplas, func(i, j int) bool {
+		return tuplas[i].VoteOrder < tuplas[j].VoteOrder
+	})
+
+	participantResult := make([]Participant, len(tuplas))
+	for i, tupla := range tuplas {
+		participantResult[i] = tupla.Participant
+	}
+
+	room.Participants = participantResult
+
+	rooms[roomID] = room
+}
+
 func wsHandler(c *gin.Context) {
 	roomID := c.Param("room")
 
@@ -193,11 +241,7 @@ func wsHandler(c *gin.Context) {
 			sendRoomToClients(roomID, "")
 
 		case "showVotes":
-			room := rooms[roomID]
-			rooms.UpdateUpdatedAt(roomID)
-			for i := range room.Participants {
-				room.Participants[i].Vote = room.Participants[i].TempVote
-			}
+			showVotes(roomID)
 			sendRoomToClients(roomID, "")
 
 		case "cleanVotes":
