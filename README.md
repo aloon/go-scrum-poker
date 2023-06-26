@@ -6,6 +6,31 @@ The application is made with go using websockets
 
 The application is running in https://go-scrum-poker.fly.dev/
 
+---
+
+## How to run
+
+### Docker
+
+```bash
+$ git clone git@github.com:aloon/go-scrum-poker.git
+$ cd go-scrum-poker
+$ docker build -t go-scrum-poker .
+$ docker run -p 8080:8080 go-scrum-poker
+```
+
+### Local
+
+```bash
+$ git clone git@github.com:aloon/go-scrum-poker.git
+$ cd go-scrum-poker
+$ go get -u github.com/gin-gonic/gin
+$ go get -u github.com/gorilla/websocket
+$ go get -u github.com/gosimple/slug
+$ go run main.go
+```
+
+---
 
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
