@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"log"
 	"sync"
 )
@@ -19,7 +19,7 @@ func getTranslations(languageCode string) map[string]string {
 		return cachedData
 	}
 
-	content, err := ioutil.ReadFile("resources/i18n.json")
+	content, err := os.ReadFile("resources/i18n.json")
 	if err != nil {
 		log.Fatal(err)
 	}
