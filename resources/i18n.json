@@ -1,0 +1,34 @@
+{
+    "title": {
+        "es": "Scrum Poker",
+        "en": "Scrum Poker"
+    },
+    "description": {
+        "es": "App gratuita de estimación ágil",
+        "en": "Free Agile Estimation App"
+    },
+    "enterRoomName":{
+        "es": "Introduce el nombre de la sala",
+        "en": "Enter the room name"
+    },
+    "createRoom": {
+        "es": "Crear sala",
+        "en": "Create room"
+    },
+    "showVotes": {
+        "es": "Mostrar votos",
+        "en": "Show votes"
+    },
+    "cleanVotes": {
+        "es": "Limpiar votos",
+        "en": "Clean votes"
+    },
+    "participants": {
+        "es": "Participantes",
+        "en": "Participants"
+    },
+    "roomName": {
+        "es": "Nombre de la sala",
+        "en": "Room name"
+    }
+}
