@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"os"
 	"log"
+	"os"
 	"sync"
 )
 
@@ -31,7 +31,12 @@ func getTranslations(languageCode string) map[string]string {
 	if err == nil {
 		rData := make(map[string]string)
 		for k, v := range data {
-			rData[k] = v[languageCode]
+			value, exists := v[languageCode]
+			if exists {
+				rData[k] = value
+			} else {
+				rData[k] = v["en"]
+			}
 		}
 
 		cacheMutex.Lock()
