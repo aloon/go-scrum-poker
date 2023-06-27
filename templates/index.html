@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{.Lang}}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrum Poker - Free Agile Estimation App</title>
-    <meta name="description" content="Scrum Poker - Open source Agile Estimation App.">
+    <title>{{.I18n.title}} - {{.I18n.description}}</title>
+    <meta name="description" content="{{.I18n.title}} - {{.I18n.description}}.">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
@@ -75,11 +75,11 @@
 
 <body>
     <div class="container">
-        <h1>Scrum Poker</h1>
-        <p class="text-center">A free tool for agile estimation</p>
+        <h1>{{.I18n.title}}</h1>
+        <p class="text-center">{{.I18n.description}}</p>
         <div class="input-field">
-            <input type="text" placeholder="Enter the room name" id="room-name">&nbsp;
-            <a href="#" id="create-room" class="btn">Create Room</a>
+            <input type="text" placeholder="{{.I18n.enterRoomName}}" id="room-name">&nbsp;
+            <a href="#" id="create-room" class="btn">{{.I18n.createRoom}}</a>
         </div>
     </div>
     <script>

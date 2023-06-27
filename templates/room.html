@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{.Lang}}">
 
 <head>
     <meta charset="UTF-8">
-    <title>Scrum Poker - Free Agile Estimation App</title>
+    <title>{{.I18n.title}} - {{.I18n.description}}</title>
+    <meta name="description" content="{{.I18n.title}} - {{.I18n.description}}.">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
@@ -66,7 +67,7 @@
 </head>
 
 <body>
-    <h1>Room name: {{.room.ID}}</h1>
+    <h1>{{.I18n.roomName}}: {{.room.ID}}</h1>
     <div class="contenedor">
         <div class="tarjeta">?</div>
         <div class="tarjeta">0</div>
@@ -81,9 +82,9 @@
     </div>
 
     <br>
-    <button id="show-votes" class="btn">Show votes</button>
-    <button id="clean-votes" class="btn">Clean votes</button>
-    <h2>Participants:</h2>
+    <button id="show-votes" class="btn">{{.I18n.showVotes}}</button>
+    <button id="clean-votes" class="btn">{{.I18n.cleanVotes}}</button>
+    <h2>{{.I18n.participants}}:</h2>
     <div id="participants"></div>
 
     <script>

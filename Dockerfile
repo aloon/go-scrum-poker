@@ -19,6 +19,7 @@ WORKDIR "$APP_HOME"
 
 COPY templates/ templates/
 COPY static/ static/
+COPY resources/ resources/
 COPY --from=builder "$APP_HOME"/go-scrum-poker $APP_HOME 
 
 EXPOSE 8080
