@@ -3,48 +3,64 @@
         "es": "Scrum Poker",
         "en": "Scrum Poker",
         "ca": "Scrum Poker",
-        "de": "Scrum Poker"
+        "de": "Scrum Poker",
+        "fr": "Scrum Poker",
+        "it": "Scrum Poker"
     },
     "description": {
         "es": "App gratuita de estimación ágil",
         "en": "Free Agile Estimation App",
         "ca": "App gratuïta d'estimació àgil",
-        "de": "Kostenlose Agile Schätzung App"
+        "de": "Kostenlose Agile Schätzung App",
+        "fr": "Application gratuite d'estimation agile",
+        "it": "App gratuita di stima agile"
     },
     "enterRoomName": {
         "es": "Introduce el nombre de la sala",
         "en": "Enter the room name",
         "ca": "Introdueix el nom de la sala",
-        "de": "Geben Sie den Raumnamen ein"
+        "de": "Geben Sie den Raumnamen ein",
+        "fr": "Entrez le nom de la salle",
+        "it": "Inserisci il nome della stanza"
     },
     "createRoom": {
         "es": "Crear sala",
         "en": "Create room",
         "ca": "Crear sala",
-        "de": "Raum erstellen"
+        "de": "Raum erstellen",
+        "fr": "Créer une salle",
+        "it": "Crea stanza"
     },
     "showVotes": {
         "es": "Mostrar votos",
         "en": "Show votes",
         "ca": "Mostrar vots",
-        "de": "Zeige Stimmen"
+        "de": "Zeige Stimmen",
+        "fr": "Afficher les votes",
+        "it": "Mostra voti"
     },
     "cleanVotes": {
         "es": "Limpiar votos",
         "en": "Clean votes",
         "ca": "Netejar vots",
-        "de": "Stimmen löschen"
+        "de": "Stimmen löschen",
+        "fr": "Nettoyer les votes",
+        "it": "Pulisci voti"
     },
     "participants": {
         "es": "Participantes",
         "en": "Participants",
         "ca": "Participants",
-        "de": "Teilnehmer"
+        "de": "Teilnehmer",
+        "fr": "Participants",
+        "it": "Partecipanti"
     },
     "roomName": {
         "es": "Nombre de la sala",
         "en": "Room name",
         "ca": "Nom de la sala",
-        "de": "Raumname"
+        "de": "Raumname",
+        "fr": "Nom de la salle",
+        "it": "Nome della stanza"
     }
 }
