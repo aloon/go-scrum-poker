@@ -2,41 +2,49 @@
     "title": {
         "es": "Scrum Poker",
         "en": "Scrum Poker",
-        "ca": "Scrum Poker"
+        "ca": "Scrum Poker",
+        "de": "Scrum Poker"
     },
     "description": {
         "es": "App gratuita de estimación ágil",
         "en": "Free Agile Estimation App",
-        "ca": "App gratuïta d'estimació àgil"
+        "ca": "App gratuïta d'estimació àgil",
+        "de": "Kostenlose Agile Schätzung App"
     },
     "enterRoomName": {
         "es": "Introduce el nombre de la sala",
         "en": "Enter the room name",
-        "ca": "Introdueix el nom de la sala"
+        "ca": "Introdueix el nom de la sala",
+        "de": "Geben Sie den Raumnamen ein"
     },
     "createRoom": {
         "es": "Crear sala",
         "en": "Create room",
-        "ca": "Crear sala"
+        "ca": "Crear sala",
+        "de": "Raum erstellen"
     },
     "showVotes": {
         "es": "Mostrar votos",
         "en": "Show votes",
-        "ca": "Mostrar vots"
+        "ca": "Mostrar vots",
+        "de": "Zeige Stimmen"
     },
     "cleanVotes": {
         "es": "Limpiar votos",
         "en": "Clean votes",
-        "ca": "Netejar vots"
+        "ca": "Netejar vots",
+        "de": "Stimmen löschen"
     },
     "participants": {
         "es": "Participantes",
         "en": "Participants",
-        "ca": "Participants"
+        "ca": "Participants",
+        "de": "Teilnehmer"
     },
     "roomName": {
         "es": "Nombre de la sala",
         "en": "Room name",
-        "ca": "Nom de la sala"
+        "ca": "Nom de la sala",
+        "de": "Raumname"
     }
 }
