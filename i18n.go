@@ -4,11 +4,36 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"strings"
 	"sync"
 )
 
 var translationsCache map[string]map[string]string
 var cacheMutex sync.RWMutex
+
+func stringInSlice(str string, slice []string) bool {
+	for _, s := range slice {
+		if s == str {
+			return true
+		}
+	}
+	return false
+}
+
+func getLanguageCodeFromHeader(acceptLanguageHeader string) string {
+	defaultCode := "en"
+	validLanguges := []string{"en", "es", "ca", "de", "fr", "it"}
+	if acceptLanguageHeader == "" {
+		return defaultCode
+	} else {
+		result := strings.Split(strings.Split(acceptLanguageHeader, ",")[0], "-")[0]
+		if stringInSlice(result, validLanguges) {
+			return result
+		} else {
+			return defaultCode
+		}
+	}
+}
 
 func getTranslations(languageCode string) map[string]string {
 	cacheMutex.RLock()

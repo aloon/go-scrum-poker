@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 	"sort"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -290,22 +289,13 @@ func roomHandler(c *gin.Context) {
 		rooms[roomId] = Room{CreatedAt: now, UpdatedAt: now, ID: roomId}
 		room = rooms[roomId]
 	}
-	languageCode := languageCode(c)
+	languageCode := getLanguageCodeFromHeader(c.Request.Header.Get("Accept-Language"))
 	i18n := getTranslations(languageCode)
 	c.HTML(http.StatusOK, "room.html", gin.H{
 		"room": room,
 		"I18n": i18n,
 		"Lang": languageCode,
 	})
-}
-
-func languageCode(c *gin.Context) string {
-	acceptLanguage := c.Request.Header.Get("Accept-Language")
-	if acceptLanguage == "" {
-		return "en"
-	} else {
-		return strings.Split(strings.Split(acceptLanguage, ",")[0], "-")[0]
-	}
 }
 
 func main() {
@@ -328,7 +318,7 @@ func main() {
 	router.GET("/:room", roomHandler)
 
 	router.GET("/", func(c *gin.Context) {
-		languageCode := languageCode(c)
+		languageCode := getLanguageCodeFromHeader(c.Request.Header.Get("Accept-Language"))
 		i18n := getTranslations(languageCode)
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"I18n": i18n,
