@@ -111,6 +111,7 @@
         document.getElementById('show-votes').addEventListener('click', function () {
             const msg = { action: "showVotes" };
             socket.send(JSON.stringify(msg));
+            tarjetas.forEach(tarjeta => tarjeta.classList.remove('seleccionada'));
         });
 
         document.getElementById('clean-votes').addEventListener('click', function () {
