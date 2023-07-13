@@ -156,17 +156,21 @@
                 document.getElementById('edit').addEventListener('click', function () {
                     editing = true;
                     document.getElementById('edit-txt').innerHTML = `<input type="text" id="username" value="${username}">`;
-                    document.getElementById('username').addEventListener('keyup', function (event) {
-                        if (event.keyCode === 13) {
-                            editing = false;
-                            const msg = { action: "editUsername", value: this.value };
-                            username = this.value;
-                            localStorage.setItem('userName', this.value)
-                            socket.send(JSON.stringify(msg));
-                            pending.forEach(onmessage);
-                            pending = [];
-                        }
+                    const userNameInput = document.getElementById('username');
+                    userNameInput.focus();
+                    const okEdit = function () {
+                        editing = false;
+                        const msg = { action: "editUsername", value: userNameInput.value };
+                        username = userNameInput.value;
+                        localStorage.setItem('userName', userNameInput.value)
+                        socket.send(JSON.stringify(msg));
+                        pending.forEach(onmessage);
+                        pending = [];
+                    }
+                    userNameInput.addEventListener('keyup', function (event) {
+                        if (event.keyCode === 13) okEdit();
                     });
+                    userNameInput.addEventListener('focusout', okEdit);
                 });
             }
         }
