@@ -162,10 +162,10 @@
                         editing = false;
                         const msg = { action: "editUsername", value: userNameInput.value };
                         username = userNameInput.value;
-                        localStorage.setItem('userName', userNameInput.value)
-                        socket.send(JSON.stringify(msg));
+                        localStorage.setItem('userName', userNameInput.value);                        
                         pending.forEach(onmessage);
                         pending = [];
+                        socket.send(JSON.stringify(msg));
                     }
                     userNameInput.addEventListener('keyup', function (event) {
                         if (event.keyCode === 13) okEdit();
