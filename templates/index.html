@@ -58,6 +58,12 @@
             background-color: #45a049;
         }
 
+        .github-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
         @media screen and (max-width: 768px) {
             .container {
                 max-width: 100%;
@@ -78,6 +84,11 @@
         <div class="input-field">
             <input type="text" placeholder="{{.I18n.enterRoomName}}" id="room-name">&nbsp;
             <a href="#" id="create-room" class="btn">{{.I18n.createRoom}}</a>
+        </div>
+
+        <div class="text-center github-link">
+            <a href="https://github.com/aloon/go-scrum-poker" target="_blank" rel="noopener noreferrer"><img
+                    src="/static/github.png" alt="{{.I18n.github}}" width="100"></a>
         </div>
     </div>
     <script>
