@@ -15,13 +15,13 @@
         "fr": "Application gratuite d'estimation agile",
         "it": "App gratuita di stima agile"
     },
-    "metaDescription":{
-        "es":"Scrum Poker Online, Estimación ágil, Planificación con cartas de póquer, Estimación de desarrollo ágil",
-        "en":"Scrum Poker Online, Agile Estimation, Planning with Poker Cards, Agile Development Estimation",
-        "ca":"Scrum Poker Online, Estimació àgil, Planificació amb cartes de pòquer, Estimació de desenvolupament àgil",
-        "de":"Scrum Poker Online, Agile Schätzung, Planung mit Pokerkarten, Agile Entwicklungsschätzung",
-        "fr":"Scrum Poker Online, Estimation Agile, Planification avec des cartes de poker, Estimation de développement Agile",
-        "it":"Scrum Poker Online, Stima Agile, Pianificazione con carte da poker, Stima Agile di sviluppo"
+    "metaDescription": {
+        "es": "Scrum Poker Online, Estimación ágil, Planificación con cartas de póquer, Estimación de desarrollo ágil",
+        "en": "Scrum Poker Online, Agile Estimation, Planning with Poker Cards, Agile Development Estimation",
+        "ca": "Scrum Poker Online, Estimació àgil, Planificació amb cartes de pòquer, Estimació de desenvolupament àgil",
+        "de": "Scrum Poker Online, Agile Schätzung, Planung mit Pokerkarten, Agile Entwicklungsschätzung",
+        "fr": "Scrum Poker Online, Estimation Agile, Planification avec des cartes de poker, Estimation de développement Agile",
+        "it": "Scrum Poker Online, Stima Agile, Pianificazione con carte da poker, Stima Agile di sviluppo"
     },
     "enterRoomName": {
         "es": "Introduce el nombre de la sala",
@@ -70,5 +70,13 @@
         "de": "Raumname",
         "fr": "Nom de la salle",
         "it": "Nome della stanza"
+    },
+    "github": {
+        "es": "Visita el proyecto en Github",
+        "en": "Visit the project on Github",
+        "ca": "Visita el projecte a Github",
+        "de": "Besuchen Sie das Projekt auf Github",
+        "fr": "Visitez le projet sur Github",
+        "it": "Visita il progetto su Github"
     }
 }
