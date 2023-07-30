@@ -3,6 +3,8 @@ package main
 import (
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCleanRooms(t *testing.T) {
@@ -35,8 +37,7 @@ func TestCleanRooms(t *testing.T) {
 
 	CleanRooms()
 
-	if len(rooms) != 1 || rooms["3"].ID != "3" {
-		t.Errorf("cleanning rooms fail")
-	}
+	assert.Len(t, rooms, 1)
+	assert.Equal(t, "3", rooms["3"].ID)
 
 }

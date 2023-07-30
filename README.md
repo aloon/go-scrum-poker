@@ -27,6 +27,7 @@ $ cd go-scrum-poker
 $ go get -u github.com/gin-gonic/gin
 $ go get -u github.com/gorilla/websocket
 $ go get -u github.com/gosimple/slug
+$ go get -u github.com/stretchr/testify
 $ go run main.go
 ```
 
