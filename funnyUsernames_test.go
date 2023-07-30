@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestFunnyUsernames(t *testing.T) {
 	results := make([]string, 0)
@@ -10,9 +14,7 @@ func TestFunnyUsernames(t *testing.T) {
 		results = append(results, generateFunnyUsername())
 	}
 
-	if results[0] == "" {
-		t.Errorf("A username was not generated")
-	}
+	assert.NotEmpty(t, results[0])
 
 	for _, item := range results {
 		if distinctMap[item] {
