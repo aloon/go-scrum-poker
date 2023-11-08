@@ -241,17 +241,14 @@ func wsHandler(c *gin.Context) {
 		case "vote":
 			voteValue := action.Value
 
-			found := false
-
-			// Itera a través de la lista cards
+			goodVote := false
 			for _, card := range cards {
 				if card == voteValue {
-					found = true
-					break // Se encontró la coincidencia, sal del bucle
+					goodVote = true
+					break
 				}
 			}
-
-			if !found {
+			if !goodVote {
 				voteValue = "?"
 			}
 
