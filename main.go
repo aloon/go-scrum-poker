@@ -43,6 +43,19 @@ func (r *RoomMap) UpdateUpdatedAt(ID string) {
 var rooms = make(RoomMap)
 var roomClients = make(map[string]map[*websocket.Conn]string)
 
+var cards = []string{
+	"?",
+	"0",
+	"0.5",
+	"1",
+	"2",
+	"3",
+	"5",
+	"8",
+	"13",
+	"21",
+}
+
 var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
 		return true
@@ -228,6 +241,20 @@ func wsHandler(c *gin.Context) {
 		case "vote":
 			voteValue := action.Value
 
+			found := false
+
+			// Itera a través de la lista cards
+			for _, card := range cards {
+				if card == voteValue {
+					found = true
+					break // Se encontró la coincidencia, sal del bucle
+				}
+			}
+
+			if !found {
+				voteValue = "?"
+			}
+
 			room := rooms[roomID]
 			rooms.UpdateUpdatedAt(roomID)
 			for i, participant := range room.Participants {
@@ -292,9 +319,10 @@ func roomHandler(c *gin.Context) {
 	languageCode := getLanguageCodeFromHeader(c.Request.Header.Get("Accept-Language"))
 	i18n := getTranslations(languageCode)
 	c.HTML(http.StatusOK, "room.html", gin.H{
-		"room": room,
-		"I18n": i18n,
-		"Lang": languageCode,
+		"room":  room,
+		"I18n":  i18n,
+		"Lang":  languageCode,
+		"cards": cards,
 	})
 }
 

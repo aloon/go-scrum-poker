@@ -69,16 +69,9 @@
 <body>
     <h1>{{.I18n.roomName}}: {{.room.ID}}</h1>
     <div class="contenedor">
-        <div class="tarjeta">?</div>
-        <div class="tarjeta">0</div>
-        <div class="tarjeta">0.5</div>
-        <div class="tarjeta">1</div>
-        <div class="tarjeta">2</div>
-        <div class="tarjeta">3</div>
-        <div class="tarjeta">5</div>
-        <div class="tarjeta">8</div>
-        <div class="tarjeta">13</div>
-        <div class="tarjeta">20</div>
+        {{range .cards}}
+        <div class="tarjeta">{{.}}</div>
+        {{end}}
     </div>
 
     <br>
